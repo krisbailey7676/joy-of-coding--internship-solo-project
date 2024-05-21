@@ -11,6 +11,7 @@ import { PiWarningCircle } from "react-icons/pi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createTaskSchema } from "@/app/validationSchemas";
 import { z } from "zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 type TaskForm = z.infer<typeof createTaskSchema>;
 
@@ -60,21 +61,14 @@ const NewTaskPage = () => {
           placeholder="Title"
           {...register("title")}
         ></TextField.Root>
-        {errors.title && (
-          <Text color="red" as="p">
-            {errors.title.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
 
         <TextField.Root
           type="datetime-local"
           {...register("dueDateTime")}
         ></TextField.Root>
-        {errors.dueDateTime && (
-          <Text color="red" as="p">
-            {errors.dueDateTime.message}
-          </Text>
-        )}
+
+        <ErrorMessage>{errors.dueDateTime?.message}</ErrorMessage>
 
         <Controller
           name="description"
@@ -83,11 +77,7 @@ const NewTaskPage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        {errors.description && (
-          <Text color="red" as="p">
-            {errors.description.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button>Create New Task</Button>
       </form>
