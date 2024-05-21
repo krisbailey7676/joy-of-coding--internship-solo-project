@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/prisma/client"
-
-// defines the shape of the object and body of API request
-const createTaskSchema = z.object({
-    title: z.string().min(1).max(255),
-    dueDateTime: z.string(),
-    description: z.string().min(1),
-})
+import {createTaskSchema} from "../../validationSchemas"
 
 export async function POST(request: NextRequest) {
     const body = await request.json();

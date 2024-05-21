@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Button, Callout, Text, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import { useForm, Controller } from "react-hook-form";
 import "easymde/dist/easymde.min.css";
@@ -8,17 +8,23 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PiWarningCircle } from "react-icons/pi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createTaskSchema } from "@/app/validationSchemas";
+import { z } from "zod";
 
-interface TaskForm {
-  title: string;
-  dueDateTime: string;
-  description: string;
-}
+type TaskForm = z.infer<typeof createTaskSchema>;
 
 const NewTaskPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
-  const { register, control, handleSubmit } = useForm<TaskForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TaskForm>({
+    resolver: zodResolver(createTaskSchema),
+  });
 
   const onSubmit = async (data: TaskForm) => {
     try {
@@ -54,11 +60,21 @@ const NewTaskPage = () => {
           placeholder="Title"
           {...register("title")}
         ></TextField.Root>
+        {errors.title && (
+          <Text color="red" as="p">
+            {errors.title.message}
+          </Text>
+        )}
 
         <TextField.Root
           type="datetime-local"
           {...register("dueDateTime")}
         ></TextField.Root>
+        {errors.dueDateTime && (
+          <Text color="red" as="p">
+            {errors.dueDateTime.message}
+          </Text>
+        )}
 
         <Controller
           name="description"
@@ -67,6 +83,11 @@ const NewTaskPage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
+        {errors.description && (
+          <Text color="red" as="p">
+            {errors.description.message}
+          </Text>
+        )}
 
         <Button>Create New Task</Button>
       </form>
