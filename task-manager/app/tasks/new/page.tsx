@@ -1,12 +1,13 @@
 "use client";
 
-import { Button, TextField } from "@radix-ui/themes";
+import { Button, Callout, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import { useForm, Controller } from "react-hook-form";
 import "easymde/dist/easymde.min.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PiWarningCircle } from "react-icons/pi";
 
 interface TaskForm {
   title: string;
@@ -15,6 +16,7 @@ interface TaskForm {
 }
 
 const NewTaskPage = () => {
+  const [error, setError] = useState("");
   const router = useRouter();
   const { register, control, handleSubmit } = useForm<TaskForm>();
 
@@ -30,35 +32,45 @@ const NewTaskPage = () => {
       await axios.post("/api/tasks", task);
       router.push("/tasks");
     } catch (error) {
-      console.log(error);
+      setError("An unexpected error has occurred.");
     }
   };
   return (
-    <form
-      className="max-w-xl px-5 space-y-3 border-1 items-center"
-      // onSubmit={handleSubmit((data) => console.log(data))}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <TextField.Root
-        placeholder="Title"
-        {...register("title")}
-      ></TextField.Root>
+    <div className="max-w-xl px-5">
+      {error && (
+        <Callout.Root color="red" className="mb-5">
+          <Callout.Icon>
+            <PiWarningCircle color="red" />
+          </Callout.Icon>
+          <Callout.Text>{error}</Callout.Text>
+        </Callout.Root>
+      )}
+      <form
+        className="space-y-3 border-1 items-center"
+        // onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <TextField.Root
+          placeholder="Title"
+          {...register("title")}
+        ></TextField.Root>
 
-      <TextField.Root
-        type="datetime-local"
-        {...register("dueDateTime")}
-      ></TextField.Root>
+        <TextField.Root
+          type="datetime-local"
+          {...register("dueDateTime")}
+        ></TextField.Root>
 
-      <Controller
-        name="description"
-        control={control}
-        render={({ field }) => (
-          <SimpleMDE placeholder="Description" {...field} />
-        )}
-      />
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <SimpleMDE placeholder="Description" {...field} />
+          )}
+        />
 
-      <Button>Create New Task</Button>
-    </form>
+        <Button>Create New Task</Button>
+      </form>
+    </div>
   );
 };
 
