@@ -4,9 +4,14 @@ import Link from "next/link";
 
 const TasksPage = () => {
   return (
-    <Button>
-      <Link href="/tasks/new">New Task</Link>
-    </Button>
+    <div className="flex flex-col p-3 max-w-80 space-y-5">
+      <Button>
+        <Link href="/tasks/new">New Task</Link>
+      </Button>
+      <Button>
+        <Link href="/tasks/taskList">View Task List</Link>
+      </Button>
+    </div>
   );
 };
 

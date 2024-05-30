@@ -15,3 +15,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(newTask, {status: 201})
 
 }
+
+export async function GET(request: NextRequest) {
+
+    const taskList = await prisma.task.findMany();
+
+    return NextResponse.json(taskList)
+}
