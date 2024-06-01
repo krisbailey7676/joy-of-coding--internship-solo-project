@@ -11,6 +11,12 @@ const TasksPage = () => {
       <Button>
         <Link href="/tasks/taskList">View Task List</Link>
       </Button>
+      <Button>
+        <Link href="/tasks/delete">Delete Task</Link>
+      </Button>
+      <Button>
+        <Link href="/tasks/edit">Edit Task</Link>
+      </Button>
     </div>
   );
 };
