@@ -6,7 +6,6 @@ const TaskListPage = async () => {
   //   const tasks = await axios.get("api/tasks");
   return (
     <div>
-      TaskListPage
       <TaskTable />
     </div>
   );
