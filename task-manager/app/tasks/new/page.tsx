@@ -17,6 +17,7 @@ type TaskForm = z.infer<typeof createTaskSchema>;
 
 const NewTaskPage = () => {
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -29,6 +30,7 @@ const NewTaskPage = () => {
 
   const onSubmit = async (data: TaskForm) => {
     try {
+      setIsSubmitting(true);
       //output format dueDateTime from input field: 2024-06-19T09:00
       const dueDateTime = new Date(data.dueDateTime).toISOString(); //2024-01-01T12:00:00.000Z
       const task = {
@@ -39,6 +41,7 @@ const NewTaskPage = () => {
       await axios.post("/api/tasks", task);
       router.push("/tasks");
     } catch (error) {
+      setIsSubmitting(false);
       setError("An unexpected error has occurred.");
     }
   };
@@ -54,7 +57,6 @@ const NewTaskPage = () => {
       )}
       <form
         className="space-y-3 border-1 items-center"
-        // onSubmit={handleSubmit((data) => console.log(data))}
         onSubmit={handleSubmit(onSubmit)}
       >
         <TextField.Root
@@ -79,7 +81,7 @@ const NewTaskPage = () => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button>Create New Task</Button>
+        <Button disabled={isSubmitting}>Create New Task</Button>
       </form>
     </div>
   );
