@@ -1,4 +1,5 @@
 // import { sort } from "fast-sort";
+import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import axios from "axios";
@@ -41,10 +42,12 @@ const taskTable = async () => {
             <Table.Row key={task.id}>
               <Table.Cell>
                 {task.title}
-                <div className="block md:hidden">{task.status}</div>
+                <div className="block md:hidden">
+                  <TaskStatusBadge status={task.status} />
+                </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {task.status}
+                <TaskStatusBadge status={task.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {task.dueDateTime?.toDateString()}
