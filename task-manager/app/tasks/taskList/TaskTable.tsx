@@ -35,13 +35,14 @@ const taskTable = async () => {
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Due
             </Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {tasks.map((task) => (
             <Table.Row key={task.id}>
               <Table.Cell>
-                {task.title}
+                <Link href={`/tasks/${task.id}`}>{task.title}</Link>
                 <div className="block md:hidden">
                   <TaskStatusBadge status={task.status} />
                 </div>
@@ -51,6 +52,9 @@ const taskTable = async () => {
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {task.dueDateTime?.toDateString()}
+              </Table.Cell>
+              <Table.Cell>
+                <Link href={"/"}>Delete</Link>
               </Table.Cell>
             </Table.Row>
           ))}
