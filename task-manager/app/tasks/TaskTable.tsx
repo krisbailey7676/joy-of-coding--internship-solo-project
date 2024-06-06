@@ -2,8 +2,7 @@
 import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-import axios from "axios";
-import Link from "next/link";
+import Link from "../components/Link";
 import React, { cache } from "react";
 
 interface Task {
