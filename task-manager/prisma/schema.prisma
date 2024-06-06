@@ -25,5 +25,6 @@ model Task {
 enum Status {
   NEW
   IN_PROGRESS
+  OVERDUE
   COMPLETE
 }
