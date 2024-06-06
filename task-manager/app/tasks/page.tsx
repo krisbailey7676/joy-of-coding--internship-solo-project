@@ -1,22 +1,23 @@
 import React from "react";
-import { Button } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
 import Link from "next/link";
+import TaskTable from "./TaskTable";
 
 const TasksPage = () => {
   return (
-    <div className="flex flex-col p-3 max-w-80 space-y-5">
-      <Button>
-        <Link href="/tasks/new">New Task</Link>
-      </Button>
-      <Button>
-        <Link href="/tasks/taskList">View Task List</Link>
-      </Button>
-      <Button>
-        <Link href="/tasks/delete">Delete Task</Link>
-      </Button>
-      <Button>
-        <Link href="/tasks/edit">Edit Task</Link>
-      </Button>
+    <div className="p-3 space-y-5">
+      <Flex gap={"4"}>
+        <Button>
+          <Link href="/tasks/new">New Task</Link>
+        </Button>
+        <Button>
+          <Link href="/tasks/delete">Delete Task</Link>
+        </Button>
+        <Button>
+          <Link href="/tasks/edit">Edit Task</Link>
+        </Button>
+      </Flex>
+      <TaskTable />
     </div>
   );
 };

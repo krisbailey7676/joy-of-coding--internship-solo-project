@@ -24,7 +24,7 @@ const taskTable = async () => {
   //     sortOrder === "email" ? (user) => user.email : (user) => user.name
   //   );
   return (
-    <div className="p-5">
+    <div className="pr-5">
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
