@@ -8,10 +8,11 @@ interface Props {
 
 const statusMap: Record<
   Status,
-  { label: string; color: "violet" | "yellow" | "green" }
+  { label: string; color: "violet" | "yellow" | "green" | "red" }
 > = {
   NEW: { label: "New", color: "violet" },
   IN_PROGRESS: { label: "In Progress", color: "yellow" },
+  OVERDUE: { label: "Overdue", color: "red" },
   COMPLETE: { label: "Complete", color: "green" },
 };
 
