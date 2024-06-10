@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { createTaskSchema } from "@/app/validationSchemas";
+import { taskSchema } from "@/app/validationSchemas";
 
 export async function GET(
   request: NextRequest,
@@ -14,12 +14,12 @@ export async function GET(
   return NextResponse.json(task, { status: 200 });
 }
 
-export async function PUT(
+export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const body = await request.json();
-  const validation = createTaskSchema.safeParse(body);
+  const validation = taskSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
 
