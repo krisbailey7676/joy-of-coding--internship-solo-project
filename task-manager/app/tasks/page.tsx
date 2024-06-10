@@ -10,9 +10,6 @@ const TasksPage = () => {
         <Button>
           <Link href="/tasks/new">New Task</Link>
         </Button>
-        <Button>
-          <Link href="/tasks/delete">Delete Task</Link>
-        </Button>
       </Flex>
       <TaskTable />
     </div>
