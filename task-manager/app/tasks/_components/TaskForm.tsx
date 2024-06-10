@@ -44,6 +44,7 @@ const TaskForm = ({ task }: { task?: Task }) => {
       //output format dueDateTime from input field: 2024-06-19T09:00
       else await axios.post("/api/tasks", formattedData);
       router.push("/tasks");
+      router.refresh();
     } catch (error) {
       setIsSubmitting(false);
       setError("An unexpected error has occurred.");
