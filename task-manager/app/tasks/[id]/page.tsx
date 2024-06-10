@@ -15,7 +15,7 @@ const TaskDetailPage = async ({ params }: Props) => {
   if (!task) notFound();
 
   return (
-    <Grid columns={"2"}>
+    <Grid columns={{ initial: "1", md: "2" }}>
       <Box>
         <TaskDetails task={task} />
       </Box>
