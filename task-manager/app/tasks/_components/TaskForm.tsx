@@ -77,6 +77,7 @@ const TaskForm = ({ task }: { task?: Task }) => {
 
         <Controller
           name="description"
+          defaultValue={task?.description}
           control={control}
           render={({ field }) => (
             <SimpleMDE placeholder="Description" {...field} />
@@ -84,7 +85,9 @@ const TaskForm = ({ task }: { task?: Task }) => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button disabled={isSubmitting}>Create New Task</Button>
+        <Button disabled={isSubmitting}>
+          {task ? "Update Task Details" : "Create New Task"}
+        </Button>
       </form>
     </div>
   );

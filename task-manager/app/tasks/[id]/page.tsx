@@ -1,8 +1,8 @@
-import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import prisma from "@/prisma/client";
-import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Box, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import React from "react";
+import EditTaskButton from "./edit/EditTaskButton";
+import TaskDetails from "./edit/TaskDetails";
 
 interface Props {
   params: { id: string }; // route parameters
@@ -15,16 +15,14 @@ const TaskDetailPage = async ({ params }: Props) => {
   if (!task) notFound();
 
   return (
-    <div>
-      <Flex gap={"3"} my={"2"} align={"center"}>
-        <Heading>{task.title}</Heading>
-        <TaskStatusBadge status={task.status} />
-      </Flex>
-      <Text>{task.dueDateTime?.toDateString()}</Text>
-      <Card>
-        <p>{task.description}</p>
-      </Card>
-    </div>
+    <Grid columns={"2"}>
+      <Box>
+        <TaskDetails task={task} />
+      </Box>
+      <Box>
+        <EditTaskButton taskId={task.id} />
+      </Box>
+    </Grid>
   );
 };
 
