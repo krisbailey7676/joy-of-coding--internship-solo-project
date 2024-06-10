@@ -13,9 +13,6 @@ const TasksPage = () => {
         <Button>
           <Link href="/tasks/delete">Delete Task</Link>
         </Button>
-        <Button>
-          <Link href="/tasks/edit">Edit Task</Link>
-        </Button>
       </Flex>
       <TaskTable />
     </div>
