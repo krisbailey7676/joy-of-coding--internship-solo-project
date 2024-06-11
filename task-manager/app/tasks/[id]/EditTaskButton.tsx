@@ -1,4 +1,3 @@
-import { Task } from "@prisma/client";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { Button } from "@radix-ui/themes";
 import Link from "next/link";

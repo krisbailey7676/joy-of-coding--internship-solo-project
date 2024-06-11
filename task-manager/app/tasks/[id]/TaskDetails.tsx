@@ -1,7 +1,7 @@
 import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import { Task } from "@prisma/client";
 import { Flex, Heading, Card, Text, TextArea } from "@radix-ui/themes";
-import React from "react";
+import ReactMarkdown from "react-markdown";
 
 const TaskDetails = ({ task }: { task: Task }) => {
   return (
@@ -11,8 +11,8 @@ const TaskDetails = ({ task }: { task: Task }) => {
         <TaskStatusBadge status={task.status} />
       </Flex>
       <Text>{`Due: ${task.dueDateTime?.toDateString()}`}</Text>
-      <Card>
-        <TextArea>{task.description}</TextArea>
+      <Card className="prose max-w-full">
+        <ReactMarkdown>{task.description}</ReactMarkdown>
       </Card>
     </>
   );
