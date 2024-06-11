@@ -1,8 +1,9 @@
 import prisma from "@/prisma/client";
-import { Box, Grid } from "@radix-ui/themes";
+import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import EditTaskButton from "./edit/EditTaskButton";
-import TaskDetails from "./edit/TaskDetails";
+import EditTaskButton from "./EditTaskButton";
+import TaskDetails from "./TaskDetails";
+import DeleteTaskButton from "./DeleteTaskButton";
 
 interface Props {
   params: { id: string }; // route parameters
@@ -15,12 +16,15 @@ const TaskDetailPage = async ({ params }: Props) => {
   if (!task) notFound();
 
   return (
-    <Grid columns={{ initial: "1", md: "2" }}>
-      <Box>
+    <Grid columns={{ initial: "1", sm: "4" }}>
+      <Box className="md:col-span-3">
         <TaskDetails task={task} />
       </Box>
       <Box>
-        <EditTaskButton taskId={task.id} />
+        <Flex direction="column" gap="4" mt="4">
+          <EditTaskButton taskId={task.id} />
+          <DeleteTaskButton taskId={task.id} />
+        </Flex>
       </Box>
     </Grid>
   );
