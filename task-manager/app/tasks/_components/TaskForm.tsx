@@ -43,7 +43,7 @@ const TaskForm = ({ task }: { task?: Task }) => {
       if (task) await axios.patch("/api/tasks/" + task.id, formattedData);
       //output format dueDateTime from input field: 2024-06-19T09:00
       else await axios.post("/api/tasks", formattedData);
-      router.push("/tasks");
+      router.push("/tasks/list");
       router.refresh();
     } catch (error) {
       setIsSubmitting(false);

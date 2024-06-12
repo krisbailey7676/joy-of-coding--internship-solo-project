@@ -1,11 +1,11 @@
 import prisma from "@/prisma/client";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-// import TaskForm from "../../_components/TaskForm";
+import TaskFormSkeleton from "./loading";
 
 const TaskForm = dynamic(() => import("@/app/tasks/_components/TaskForm"), {
   ssr: false,
-  // loading: () => <IssueFormSkeleton />,
+  loading: () => <TaskFormSkeleton />,
 });
 
 interface Props {

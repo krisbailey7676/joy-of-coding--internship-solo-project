@@ -1,32 +1,12 @@
-import { sort } from "fast-sort";
 import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import prisma from "@/prisma/client";
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  Flex,
-  IconButton,
-  Inset,
-  Popover,
-  Table,
-  TextArea,
-} from "@radix-ui/themes";
-import Link from "../components/Link";
-import React, { cache } from "react";
-import { Cross1Icon, CrossCircledIcon, TrashIcon } from "@radix-ui/react-icons";
-import TaskDetails from "./[id]/TaskDetails";
-import EditTaskButton from "./[id]/EditTaskButton";
-import { Task } from "@prisma/client";
-import { number, string } from "zod";
-import DeleteTaskButton from "./[id]/DeleteTaskButton";
-
-// interface Task {
-//   id: number;
-//   title: string;
-//   dueDateTime: string;
-// }
+import { Cross1Icon } from "@radix-ui/react-icons";
+import { Button, Dialog, Flex, IconButton, Table } from "@radix-ui/themes";
+import { sort } from "fast-sort";
+import Link from "../../components/Link";
+import DeleteTaskButton from "../[id]/DeleteTaskButton";
+import EditTaskButton from "../[id]/EditTaskButton";
+import TaskDetails from "../[id]/TaskDetails";
 
 interface Props {
   sortOrder: string;

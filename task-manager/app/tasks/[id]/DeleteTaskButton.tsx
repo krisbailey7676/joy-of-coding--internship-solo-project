@@ -31,7 +31,7 @@ const DeleteTaskButton = ({ taskId }: { taskId: number }) => {
               color="purple"
               onClick={async () => {
                 await axios.delete(`/api/tasks/${taskId}`);
-                router.push("/tasks");
+                router.push("/tasks/list");
                 router.refresh();
               }}
             >
