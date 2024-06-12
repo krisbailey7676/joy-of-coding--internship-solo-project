@@ -16,15 +16,14 @@ const TaskDetailPage = async ({ params }: Props) => {
   if (!task) notFound();
 
   return (
-    <Grid columns={{ initial: "1", sm: "4" }}>
-      <Box className="md:col-span-3">
-        <TaskDetails task={task} />
+    <Grid>
+      <Box maxWidth={"30rem"} mb={"3"}>
+        <Flex direction={"column"} gap={"2"}>
+          <TaskDetails task={task} />
+        </Flex>
       </Box>
       <Box>
-        <Flex direction="column" gap="4" mt="4">
-          <EditTaskButton taskId={task.id} />
-          <DeleteTaskButton taskId={task.id} />
-        </Flex>
+        <EditTaskButton taskId={task.id} />
       </Box>
     </Grid>
   );

@@ -1,6 +1,13 @@
 import TaskStatusBadge from "@/app/components/TaskStatusBadge";
 import { Task } from "@prisma/client";
-import { Flex, Heading, Card, Text, TextArea } from "@radix-ui/themes";
+import {
+  Flex,
+  Heading,
+  Card,
+  Text,
+  TextArea,
+  ScrollArea,
+} from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
 
 const TaskDetails = ({ task }: { task: Task }) => {
@@ -11,9 +18,11 @@ const TaskDetails = ({ task }: { task: Task }) => {
         <TaskStatusBadge status={task.status} />
       </Flex>
       <Text>{`Due: ${task.dueDateTime?.toDateString()}`}</Text>
-      <Card className="prose max-w-full">
-        <ReactMarkdown>{task.description}</ReactMarkdown>
-      </Card>
+      <ScrollArea scrollbars="vertical" type="auto">
+        <Card className="prose max-w-full">
+          <ReactMarkdown>{task.description}</ReactMarkdown>
+        </Card>
+      </ScrollArea>
     </>
   );
 };

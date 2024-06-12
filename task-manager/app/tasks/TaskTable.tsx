@@ -4,7 +4,10 @@ import prisma from "@/prisma/client";
 import {
   Box,
   Button,
+  Container,
+  Dialog,
   Flex,
+  IconButton,
   Inset,
   Popover,
   Table,
@@ -12,11 +15,12 @@ import {
 } from "@radix-ui/themes";
 import Link from "../components/Link";
 import React, { cache } from "react";
-import { CrossCircledIcon, TrashIcon } from "@radix-ui/react-icons";
+import { Cross1Icon, CrossCircledIcon, TrashIcon } from "@radix-ui/react-icons";
 import TaskDetails from "./[id]/TaskDetails";
 import EditTaskButton from "./[id]/EditTaskButton";
 import { Task } from "@prisma/client";
 import { number, string } from "zod";
+import DeleteTaskButton from "./[id]/DeleteTaskButton";
 
 // interface Task {
 //   id: number;
@@ -45,6 +49,7 @@ const taskTable = async ({ sortOrder }: Props) => {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
+            <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>
               <Link href="/tasks?sortOrder=name">Task</Link>
             </Table.ColumnHeaderCell>
@@ -54,34 +59,35 @@ const taskTable = async ({ sortOrder }: Props) => {
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               <Link href="/tasks?sortOrder=dueDateTime">Due Date/Time</Link>
             </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {sortedTasks.map((task) => (
             <Table.Row key={task.id}>
               <Table.Cell>
-                <Link href={`/tasks/${task.id}`}>{task.title}</Link>
-
-                {/* <Popover.Root>
-                  <Popover.Trigger>
-                    <Button>{task.title}</Button>
-                  </Popover.Trigger>
-                  <Popover.Content width="500px" height="20rem">
-                    <Popover.Close>
-                      <Flex justify={"end"}>
-                        <Button color="red">
-                          <CrossCircledIcon />
-                        </Button>
-                      </Flex>
-                    </Popover.Close>
-                    <Flex flexGrow="1" direction="column" gap="4">
+                <DeleteTaskButton taskId={task.id} />
+              </Table.Cell>
+              <Table.Cell>
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <Button variant="ghost">{task.title}</Button>
+                  </Dialog.Trigger>
+                  <Dialog.Content maxWidth="450px">
+                    <Flex justify={"end"}>
+                      <Dialog.Close>
+                        <IconButton color="red" size="2">
+                          <Cross1Icon />
+                        </IconButton>
+                      </Dialog.Close>
+                    </Flex>
+                    <Flex direction="column" gap="4" maxHeight="250px">
                       <TaskDetails task={task} />
+                    </Flex>
+                    <Flex justify={"center"} mt={"4"}>
                       <EditTaskButton taskId={task.id} />
                     </Flex>
-                  </Popover.Content>
-                </Popover.Root> */}
-
+                  </Dialog.Content>
+                </Dialog.Root>
                 <div className="block md:hidden">
                   <TaskStatusBadge status={task.status} />
                 </div>
@@ -92,9 +98,9 @@ const taskTable = async ({ sortOrder }: Props) => {
               <Table.Cell className="hidden md:table-cell">
                 {task.dueDateTime?.toLocaleString()}
               </Table.Cell>
-              <Table.Cell>
-                <Link href={`/tasks/${task.id}`}>Delete</Link>
-              </Table.Cell>
+              {/* <Table.Cell>
+                <DeleteTaskButton taskId={task.id} />
+              </Table.Cell> */}
             </Table.Row>
           ))}
         </Table.Body>
