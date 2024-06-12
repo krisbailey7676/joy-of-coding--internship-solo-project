@@ -68,29 +68,11 @@ const TaskForm = ({ task }: { task?: Task }) => {
         ></TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
 
-        {/* {task ? (
-          <TextField.Root
-            defaultValue={task.dueDateTime?.toLocaleTimeString()}
-            type="datetime-local"
-            {...register("dueDateTime")}
-          >
-            <Button>
-              <CalendarIcon />
-              <Link href={"/"}></Link>
-            </Button>
-          </TextField.Root>
-        ) : (
-          <TextField.Root
-            type="datetime-local"
-            {...register("dueDateTime")}
-          ></TextField.Root>
-        )} */}
         <TextField.Root
-          defaultValue={task?.dueDateTime?.toDateString()}
+          defaultValue={task?.dueDateTime?.toISOString().slice(0, 16)}
           type="datetime-local"
           {...register("dueDateTime")}
         ></TextField.Root>
-
         <ErrorMessage>{errors.dueDateTime?.message}</ErrorMessage>
 
         <Controller
