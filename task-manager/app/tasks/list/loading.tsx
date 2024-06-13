@@ -1,12 +1,6 @@
-import TaskStatusBadge from "@/app/components/TaskStatusBadge";
-import { Cross1Icon } from "@radix-ui/react-icons";
-import { Table, Dialog, Button, Flex, IconButton } from "@radix-ui/themes";
-import Link from "next/link";
-import React from "react";
-import DeleteTaskButton from "../[id]/DeleteTaskButton";
-import EditTaskButton from "../[id]/EditTaskButton";
-import TaskDetails from "../[id]/TaskDetails";
-import Skeleton from "@/app/components/Skeleton";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { Table } from "@radix-ui/themes";
 
 const LoadingTasksPage = () => {
   const tasks = [1, 2, 3, 4, 5];
@@ -16,14 +10,12 @@ const LoadingTasksPage = () => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>
-              <Link href="/tasks?sortOrder=name">Task</Link>
+            <Table.ColumnHeaderCell>Task</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Status
             </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
-              <Link href="/tasks?sortOrder=status">Status</Link>
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              <Link href="/tasks?sortOrder=dueDateTime">Due Date/Time</Link>
+              Due Date/Time
             </Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
