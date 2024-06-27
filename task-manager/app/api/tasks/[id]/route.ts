@@ -33,6 +33,7 @@ export async function PATCH(
     where: { id: task.id },
     data: {
       title: body.title,
+      status: body.status,
       description: body.description,
       dueDateTime: body.dueDateTime,
     },

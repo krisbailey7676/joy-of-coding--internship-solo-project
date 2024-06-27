@@ -3,8 +3,8 @@
 import ErrorMessage from "@/app/components/ErrorMessage";
 import { taskSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Task } from "@prisma/client";
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Status, Task } from "@prisma/client";
+import { Button, Callout, Select, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ import { PiWarningCircle } from "react-icons/pi";
 import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
-type taskFormData = z.infer<typeof taskSchema>;
+type TaskFormData = z.infer<typeof taskSchema>;
 
 const TaskForm = ({ task }: { task?: Task }) => {
   const [error, setError] = useState("");
@@ -25,7 +25,7 @@ const TaskForm = ({ task }: { task?: Task }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<taskFormData>({
+  } = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
   });
 
@@ -34,6 +34,7 @@ const TaskForm = ({ task }: { task?: Task }) => {
     // dueDateTime converted to isoString prior to patch/post
     const formattedData = {
       title: data.title,
+      status: data.status,
       dueDateTime,
       description: data.description,
     };
@@ -67,6 +68,24 @@ const TaskForm = ({ task }: { task?: Task }) => {
           {...register("title")}
         ></TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
+
+        <Controller
+          name="status"
+          control={control}
+          defaultValue={task ? task.status : Status.NEW}
+          render={({ field }) => (
+            <Select.Root onValueChange={field.onChange} {...field}>
+              <Select.Trigger />
+              <Select.Content>
+                {Object.keys(Status).map((status) => (
+                  <Select.Item key={status} value={status}>
+                    {status}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+          )}
+        />
 
         <TextField.Root
           defaultValue={task?.dueDateTime?.toISOString().slice(0, 16)}
