@@ -31,13 +31,15 @@ const taskTable = async ({ sortOrder }: Props) => {
           <Table.Row>
             <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>
-              <Link href="/tasks?sortOrder=name">Task</Link>
+              <Link href="/tasks/list?sortOrder=name">Task</Link>
             </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
-              <Link href="/tasks?sortOrder=status">Status</Link>
+              <Link href="/tasks/list?sortOrder=status">Status</Link>
             </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
-              <Link href="/tasks?sortOrder=dueDateTime">Due Date/Time</Link>
+              <Link href="/tasks/list?sortOrder=dueDateTime">
+                Due Date/Time
+              </Link>
             </Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
